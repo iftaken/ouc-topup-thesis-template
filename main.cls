@@ -1,22 +1,20 @@
 % ============================================================
-% 心河大学学位论文 LaTeX 文档类模板
+% 国家开放大学学士学位论文 LaTeX 文档类模板
 % ============================================================
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{main}[2026/03/11 v1.0 University Thesis Template]
+\ProvidesClass{main}[2026/03/11 v1.0 National Open University Thesis Template]
 
 % ------------------------------------------------------------
 % 选项处理
 % ------------------------------------------------------------
-\DeclareOption{print}{\PassOptionsToClass{twoside}{ctexbook}}
-\DeclareOption{draft}{\PassOptionsToClass{draft}{ctexbook}}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexart}}
 \ExecuteOptions{}
 \ProcessOptions\relax
 
 % ------------------------------------------------------------
-% 基础文档类 (ctexbook 提供中文支持)
+% 基础文档类 (ctexart 提供中文支持，不分章节分页)
 % ------------------------------------------------------------
-\LoadClass[UTF8,a4paper,12pt,openany]{ctexbook}
+\LoadClass[UTF8,a4paper,14pt]{ctexart}
 
 % ------------------------------------------------------------
 % 页面设置
@@ -25,10 +23,10 @@
 \geometry{
     paperwidth=210mm,
     paperheight=297mm,
-    left=2.5cm,
-    right=2.5cm,
+    left=2.8cm,
+    right=2cm,
     top=2.5cm,
-    bottom=2.5cm,
+    bottom=2cm,
     headheight=15pt,
     headsep=20pt,
     footskip=30pt
@@ -43,6 +41,7 @@
 \RequirePackage{titlesec}           % 标题格式
 \RequirePackage{tocloft}            % 目录格式
 \RequirePackage{graphicx}           % 图片支持
+\RequirePackage{pdfpages}           % 插入PDF页面
 \RequirePackage{amsmath,amssymb,amsfonts} % 数学公式
 \RequirePackage{booktabs}           % 表格
 \RequirePackage{longtable}          % 跨页表格
@@ -51,19 +50,16 @@
 \RequirePackage{float}              % 浮动体控制
 \RequirePackage{caption}            % 图表标题
 \RequirePackage{subcaption}         % 子图标题
-\RequirePackage{bicaption}           % 双语图表标题
 \RequirePackage{hyperref}           % 超链接
 \RequirePackage{enumitem}           % 列表环境
 \RequirePackage{xcolor}             % 颜色
 \RequirePackage{listings}           % 代码 listings
-\RequirePackage{algorithm}          % 算法环境
-\RequirePackage{algpseudocode}      % 算法伪代码
-\RequirePackage{dirtree}            % 目录树结构
 
 % ------------------------------------------------------------
 % 参考文献设置
 % ------------------------------------------------------------
 \RequirePackage[sort&compress,numbers,super]{natbib}
+\renewcommand{\bibsection}{\section*{\centering\refname}}
 
 % ------------------------------------------------------------
 % 超链接设置
@@ -91,10 +87,6 @@
 \setsansfont{Arial}
 \setmonofont{Courier New}
 
-\setmainfont{Times New Roman}   % 英文正文
-\setsansfont{Arial}             % 英文无衬线
-\setmonofont{Courier New}       % 英文等宽
-
 % ------------------------------------------------------------
 % 字号设置 (pt)
 % ------------------------------------------------------------
@@ -118,61 +110,55 @@
 
 % ------------------------------------------------------------
 % 章节标题格式设置
+% 一级标题：黑体 小二 左对齐 格式：一、xxx
+% 二级标题：黑体 小三 左对齐 格式：（一）xxx
+% 三级标题：黑体 小四 缩进两个字符 格式：1. xxx
 % ------------------------------------------------------------
 \ctexset{
-    chapter = {
-        format = \centering\sffamily\xiaoer\bfseries,
-        name = {第,章},
-        number = \chinese{chapter},
-        beforeskip = 24pt,
-        afterskip = 18pt,
-        pagestyle = fancy
-    },
     section = {
-        format = \sffamily\sanhao\bfseries,
+        format = \CJKfamily{zhhei}\xiaoer\bfseries,
+        number = \chinese{section}、,
         beforeskip = 12pt,
         afterskip = 6pt
     },
     subsection = {
-        format = \sffamily\sihao\bfseries,
+        format = \CJKfamily{zhhei}\xiaosan\bfseries,
+        number = （\chinese{subsection}）,
         beforeskip = 6pt,
-        afterskip = 6pt
+        afterskip = 3pt
     },
     subsubsection = {
-        format = \sffamily\xiaosi\bfseries,
+        format = \CJKfamily{zhhei}\xiaosi\bfseries,
+        number = \arabic{subsubsection}. ,
         beforeskip = 6pt,
-        afterskip = 6pt
+        afterskip = 3pt,
+        indent = 2em
     }
 }
 
 % ------------------------------------------------------------
 % 目录格式设置
 % ------------------------------------------------------------
-\renewcommand{\cftchapfont}{\sffamily\xiaosi}
+\renewcommand{\cfttoctitlefont}{\hfill\xiaoer\CJKfamily{zhhei}\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\contentsname}{目\quad\quad 录}
+\setlength{\cftaftertoctitleskip}{40pt}
 \renewcommand{\cftsecfont}{\xiaosi}
 \renewcommand{\cftsubsecfont}{\xiaosi}
-\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
-\setlength{\cftbeforechapskip}{6pt}
+\renewcommand{\cftsubsubsecfont}{\xiaosi}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \setlength{\cftbeforesecskip}{3pt}
 \setlength{\cftbeforesubsecskip}{3pt}
+\setlength{\cftbeforesubsubsecskip}{3pt}
 
 % ------------------------------------------------------------
 % 页眉页脚设置
 % ------------------------------------------------------------
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[C]{\xiaowu 心河大学学位论文}
 \fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-
-% 章节首页页眉页脚
-\fancypagestyle{plain}{
-    \fancyhf{}
-    \fancyhead[C]{\xiaowu 心河大学学位论文}
-    \fancyfoot[C]{\thepage}
-    \renewcommand{\headrulewidth}{0.4pt}
-}
 
 % ------------------------------------------------------------
 % 图表标题格式
@@ -187,30 +173,12 @@
 \captionsetup[table]{name={表}}
 
 % ------------------------------------------------------------
-% 双语图表标题设置
+% 图表编号格式: 章-序号 (使用section作为章)
 % ------------------------------------------------------------
-\DeclareCaptionOption{bi-first}[]{%
-    \def\figurename{图}%
-    \def\tablename{表}%
-}
-\DeclareCaptionOption{bi-second}[]{%
-    \def\figurename{Figure}%
-    \def\tablename{Table}%
-}
-\captionsetup[bi-first]{bi-first}
-\captionsetup[bi-second]{bi-second}
-
-% ------------------------------------------------------------
-% 图表编号格式: 章-序号
-% ------------------------------------------------------------
-\renewcommand{\thefigure}{\thechapter-\arabic{figure}}
-\renewcommand{\thetable}{\thechapter-\arabic{table}}
-\renewcommand{\theequation}{\thechapter-\arabic{equation}}
-\makeatletter
-\@addtoreset{figure}{chapter}
-\@addtoreset{table}{chapter}
-\@addtoreset{equation}{chapter}
-\makeatother
+\renewcommand{\thefigure}{\thesection-\arabic{figure}}
+\renewcommand{\thetable}{\thesection-\arabic{table}}
+\renewcommand{\theequation}{\thesection-\arabic{equation}}
+% 重置计数器在文档类中通过其他方式处理
 
 % ------------------------------------------------------------
 % 列表环境设置
@@ -250,13 +218,13 @@
 % ------------------------------------------------------------
 \RequirePackage{amsthm}
 \theoremstyle{definition}
-\newtheorem{definition}{定义}[chapter]
-\newtheorem{theorem}{定理}[chapter]
-\newtheorem{lemma}{引理}[chapter]
-\newtheorem{corollary}{推论}[chapter]
-\newtheorem{proposition}{命题}[chapter]
-\newtheorem{example}{例}[chapter]
-\newtheorem{remark}{注}[chapter]
+\newtheorem{definition}{定义}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}{引理}[section]
+\newtheorem{corollary}{推论}[section]
+\newtheorem{proposition}{命题}[section]
+\newtheorem{example}{例}[section]
+\newtheorem{remark}{注}[section]
 
 % ------------------------------------------------------------
 % 封面信息命令
@@ -268,14 +236,24 @@
 \newcommand{\studentid}[1]{\gdef\@studentid{#1}}
 \newcommand{\degree}[1]{\gdef\@degree{#1}}
 \newcommand{\submitdate}[1]{\gdef\@submitdate{#1}}
+\newcommand{\thesistitle}[1]{\gdef\@thesistitle{#1}}
+\newcommand{\thesisauthor}[1]{\gdef\@thesisauthor{#1}}
+\newcommand{\branch}[1]{\gdef\@branch{#1}}
+\newcommand{\learningcenter}[1]{\gdef\@learningcenter{#1}}
+\newcommand{\enrollmentdate}[1]{\gdef\@enrollmentdate{#1}}
 
-\university{XX大学}
+\university{国家开放大学}
 \college{XX学院}
 \major{XX专业}
-\advisor{XXX教授}
+\advisor{XXX}
 \studentid{20XXXXXXXX}
-\degree{硕士学位论文}
+\degree{学士学位论文}
 \submitdate{2026年3月}
+\thesistitle{论文题目}
+\thesisauthor{作者姓名}
+\branch{}
+\learningcenter{}
+\enrollmentdate{}
 
 % ------------------------------------------------------------
 % 封面生成命令
@@ -283,39 +261,42 @@
 \newcommand{\makecover}{%
     \begin{titlepage}
         \centering
-        \vspace*{1cm}
+        \vspace*{3cm}
         
         % 学校名称
-        {\zihao{-2}\bfseries\CJKfamily{zhsong}\@university}
+        {\yihao\CJKfamily{zhsong}\@university}
         
         \vspace{1.5cm}
         
         % 学位类型
-        {\zihao{2}\bfseries\CJKfamily{zhsong}\@degree}
+        {\erhao\CJKfamily{zhsong}\@degree}
         
-        \vspace{3cm}
+        \vspace{3.5cm}
         
         % 论文题目
-        {\zihao{-2}\bfseries\CJKfamily{zhsong}\@title}
+        {\xiaosi\CJKfamily{zhsong}题目：\@thesistitle}
         
-        \vspace{4cm}
+        \vspace{3.5cm}
         
         % 作者信息
-        {\zihao{4}
-        \begin{tabular}{rl}
-            \CJKfamily{zhsong}\textbf{学院名称：} & \CJKfamily{zhsong}\@college \\[0.8cm]
-            \CJKfamily{zhsong}\textbf{专业名称：} & \CJKfamily{zhsong}\@major \\[0.8cm]
-            \CJKfamily{zhsong}\textbf{作者姓名：} & \CJKfamily{zhsong}\@author \\[0.8cm]
-            \CJKfamily{zhsong}\textbf{学\qquad 号：} & \CJKfamily{zhsong}\@studentid \\[0.8cm]
-            \CJKfamily{zhsong}\textbf{指导教师：} & \CJKfamily{zhsong}\@advisor \\[0.8cm]
+        {\xiaosi
+        \begin{tabular}{r@{\hspace{0.5em}}l}
+            \CJKfamily{zhsong}分部： & \CJKfamily{zhsong}\@branch \\[0.8cm]
+            \CJKfamily{zhsong}学习中心： & \CJKfamily{zhsong}\@learningcenter \\[0.8cm]
+            \CJKfamily{zhsong}专业： & \CJKfamily{zhsong}\@major \\[0.8cm]
+            \CJKfamily{zhsong}入学时间： & \CJKfamily{zhsong}\@enrollmentdate \\[0.8cm]
+            \CJKfamily{zhsong}学号： & \CJKfamily{zhsong}\@studentid \\[0.8cm]
+            \CJKfamily{zhsong}姓名： & \CJKfamily{zhsong}\@thesisauthor \\[0.8cm]
+            \CJKfamily{zhsong}指导教师： & \CJKfamily{zhsong}\@advisor \\[0.8cm]
         \end{tabular}
         }
         
         \vfill
         
         % 提交日期
-        {\zihao{4}\bfseries\CJKfamily{zhsong}\@submitdate}
+        {\xiaosi\CJKfamily{zhsong}论文完成日期:\hspace{2em}\underline{\hspace{3cm}}年\underline{\hspace{1.5cm}}月}
         
+        \vspace{2cm}
     \end{titlepage}
 }
 

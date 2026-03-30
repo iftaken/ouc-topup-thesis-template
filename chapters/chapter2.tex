@@ -1,42 +1,22 @@
 % ============================================================
-% 第二章 LaTeX基础示例
+% 第二章 相关技术
 % ============================================================
 
-\chapter{LaTeX基础示例}
+\section{相关技术}
 
-\section{图片插入示例}
+\subsection{图片插入示例}
 
-图~\ref{fig:neural-network}展示了一个深度神经网络结构示例。图~\ref{fig:subfig-example}展示了子图排版功能。
+图~\ref{fig:neural-network}展示了一个深度神经网络结构示例。
 
 % 单图示例
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{figture/example}
-    \bicaption{深度神经网络结构示意图}{Schematic Diagram of Deep Neural Network Structure}
+    \caption{深度神经网络结构示意图}
     \label{fig:neural-network}
 \end{figure}
 
-% 子图示例
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{figture/example}
-        \bicaption{子图A说明}{Subfigure A Description}
-        \label{fig:sub-a}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{figture/example}
-        \bicaption{子图B说明}{Subfigure B Description}
-        \label{fig:sub-b}
-    \end{subfigure}
-    \bicaption{子图排版示例}{Example of Subfigure Layout}
-    \label{fig:subfig-example}
-\end{figure}
-
-\section{公式排版示例}
+\subsection{公式排版示例}
 
 行内公式示例：$E = mc^2$，$\alpha + \beta = \gamma$。
 
@@ -54,14 +34,14 @@
 
 公式~\eqref{eq:integral}展示了微积分基本定理，公式~\eqref{eq:maxwell1}和\eqref{eq:maxwell2}是麦克斯韦方程组的一部分。
 
-\section{表格排版示例}
+\subsection{表格排版示例}
 
 表~\ref{tab:three-line}展示了标准三线表的排版效果。
 
 % 三线表示例
 \begin{table}[htbp]
     \centering
-    \bicaption{实验结果对比表}{Comparison of Experimental Results}
+    \caption{实验结果对比表}
     \label{tab:three-line}
     \begin{tabular}{ccc}
         \toprule
@@ -74,25 +54,6 @@
     \end{tabular}
 \end{table}
 
-表~\ref{tab:multi-row}展示了包含多行合并的表格。
+\subsection{本章小结}
 
-\begin{table}[htbp]
-    \centering
-    \bicaption{多层结构数据表}{Multi-level Structure Data Table}
-    \label{tab:multi-row}
-    \begin{tabular}{cccc}
-        \toprule
-        \textbf{类别} & \textbf{参数} & \textbf{数值} & \textbf{单位} \\
-        \midrule
-        \multirow{2}{*}{输入} & 通道数 & 3 & - \\
-                              & 尺寸 & 224$\times$224 & px \\
-        \midrule
-        \multirow{2}{*}{输出} & 类别数 & 1000 & - \\
-                              & 概率 & 0.85 & - \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-\section{本章小结}
-
-本章展示了LaTeX模板的核心功能：图片插入（含子图）、数学公式排版（行内公式、独立公式、多行对齐公式）、三线表排版，以及中英双语图表标题功能。
+本章展示了LaTeX模板的核心功能：图片插入、数学公式排版（行内公式、独立公式、多行对齐公式）、三线表排版等功能。
