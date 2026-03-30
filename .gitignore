@@ -85,3 +85,7 @@ Desktop.ini
 
 # 保留主PDF（例外规则）
 !main.pdf
+
+# 保留封面和原创声明PDF
+!figture/封面.pdf
+!figture/原创声明.pdf
